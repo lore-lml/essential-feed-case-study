@@ -8,14 +8,6 @@
 
 import Foundation
 
-public typealias HTTPClientSuccessResult = (Data, HTTPURLResponse)
-
-public typealias HTTPClientResult = Result<HTTPClientSuccessResult, Error>
-
-public protocol HTTPClient{
-    func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void)
-}
-
 public final class RemoteFeedLoader{
     
     public init(url: URL, client: HTTPClient) {
