@@ -12,7 +12,6 @@ import EssentialFeed
 final class EssentialFeedAPIEndToEndTests: XCTestCase {
 
     func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData(){
-        
         switch getFeedResult(){
         case .success(let items):
             XCTAssertEqual(items.count, 8, "Expected 8 items in the test account feed. Got \(items.count).")
@@ -37,13 +36,17 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
 }
 
 private extension EssentialFeedAPIEndToEndTests{
-    func getFeedResult() -> LoadFeedResult?{
+    func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> LoadFeedResult?{
         let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
         let client = URLSessionHTTPClient()
         let loader = RemoteFeedLoader(url: testServerURL, client: client)
         
         let exp = expectation(description: "Wait for load completion")
         var receivedResult: LoadFeedResult?
+        
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
+        
         loader.load { result in
             receivedResult = result
             exp.fulfill()
@@ -52,6 +55,7 @@ private extension EssentialFeedAPIEndToEndTests{
         wait(for: [exp], timeout: 30)
         return receivedResult
     }
+    
     func expectedItem(at index: Int) -> FeedItem{
         .init(
             id:             FeedItemSample.id(at: index),
