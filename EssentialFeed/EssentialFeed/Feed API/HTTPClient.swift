@@ -8,7 +8,7 @@
 
 import Foundation
 
-public typealias HTTPClientSuccessResult = (Data, HTTPURLResponse)
+public typealias HTTPClientSuccessResult = (data: Data, response: HTTPURLResponse)
 
 public typealias HTTPClientResult = Result<HTTPClientSuccessResult, Error>
 
