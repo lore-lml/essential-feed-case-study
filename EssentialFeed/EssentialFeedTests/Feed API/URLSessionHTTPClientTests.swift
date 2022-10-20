@@ -159,7 +159,6 @@ private extension URLSessionHTTPClientTests{
         
         /// This method indicates whether the request can be handled or not. We obtain an instance of this class only if the request can be handled
         override class func canInit(with request: URLRequest) -> Bool {
-            requestObserver?(request)
             return true
         }
         
@@ -168,6 +167,10 @@ private extension URLSessionHTTPClientTests{
         
         /// At this time we have an instance of the class and the framework accepted to handle the request. Now we should start loading the url
         override func startLoading() {
+            if let requestObserver = Self.requestObserver{
+                client?.urlProtocolDidFinishLoading(self)
+                return requestObserver(request)
+            }
             
             if let data = Self.stub?.data{
                 client?.urlProtocol(self, didLoad: data)
