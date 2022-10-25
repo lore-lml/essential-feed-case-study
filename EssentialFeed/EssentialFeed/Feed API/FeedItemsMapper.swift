@@ -8,15 +8,6 @@
 
 import Foundation
 
-struct RemoteFeedItem: Decodable {
-    
-    let id: UUID
-    let image: URL
-    let description: String?
-    let location: String?
-
-}
-
 enum FeedItemsMapper{
     
     private struct Root: Decodable{
