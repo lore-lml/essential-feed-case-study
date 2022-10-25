@@ -13,7 +13,6 @@ enum FeedItemsMapper{
     private struct Root: Decodable{
         let items: [RemoteFeedItem]
     }
-    
     private static let ok200 = 200
     
     static func map(_ data: Data, from response: HTTPURLResponse) throws -> [RemoteFeedItem]{

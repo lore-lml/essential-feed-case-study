@@ -127,13 +127,13 @@ private extension LoadFeedFromRemoteUseCaseTests{
         return (sut: sut, client: client)
     }
     
-    private func makeItem(id: UUID = .init(), description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedItem, json: [String: Any]){
+    private func makeItem(id: UUID = .init(), description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedImage, json: [String: Any]){
         
-        let model = FeedItem(id: id, imageURL: imageURL, description: description, location: location)
+        let model = FeedImage(id: id, url: imageURL, description: description, location: location)
         
         let json = [
             "id": model.id.uuidString,
-            "image": model.imageURL.absoluteString,
+            "image": model.url.absoluteString,
             "description": model.description,
             "location": model.location
         ]
