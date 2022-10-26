@@ -78,9 +78,7 @@ final class URLSessionHTTPClientTests: XCTestCase {
 // MARK: Helpers
 private extension URLSessionHTTPClientTests{
     
-    var anyURL: URL{ .init(string: "http://any-url.com")! }
     var anyData: Data{ .init("any data".utf8) }
-    var anyNSError: NSError{ .init(domain: "any error", code: 1) }
     var nonHTTPURLResponse: URLResponse{ .init(url: anyURL, mimeType: nil, expectedContentLength: 0, textEncodingName: nil) }
     var anyHTTPURLResponse: HTTPURLResponse{ .init(url: anyURL, statusCode: 200, httpVersion: nil, headerFields: nil)! }
     
