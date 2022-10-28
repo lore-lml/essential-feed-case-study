@@ -1,5 +1,5 @@
 //
-//  CodableFeedStoreTests.swift
+//  FeedStoreTests.swift
 //  EssentialFeedTests
 //
 //  Created by Lorenzo Limoli on 28/10/22.
@@ -93,7 +93,7 @@ class CodableFeedStore: FeedStore{
     }
 }
 
-final class CodableFeedStoreTests: XCTestCase {
+final class FeedStoreTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -216,7 +216,7 @@ final class CodableFeedStoreTests: XCTestCase {
 }
 
 
-private extension CodableFeedStoreTests{
+private extension FeedStoreTests{
     
     private var testSpecificStoreURL: URL{ cachesDirectory.appendingPathComponent("\(type(of: self)).store") }
     
@@ -224,14 +224,14 @@ private extension CodableFeedStoreTests{
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
     }
     
-    private func makeSUT(storeURL: URL? = nil, file: StaticString = #filePath, line: UInt = #line) -> CodableFeedStore{
+    private func makeSUT(storeURL: URL? = nil, file: StaticString = #filePath, line: UInt = #line) -> FeedStore{
         let sut = CodableFeedStore(storeURL: storeURL ?? testSpecificStoreURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
     
     @discardableResult
-    private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: CodableFeedStore, file: StaticString = #filePath, line: UInt = #line) -> Error?{
+    private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: FeedStore, file: StaticString = #filePath, line: UInt = #line) -> Error?{
         let exp = expectation(description: "Waiting for cache insertion")
         
         var insertionError: Error?
@@ -245,7 +245,7 @@ private extension CodableFeedStoreTests{
         return insertionError
     }
     
-    private func expect(_ sut: CodableFeedStore, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line){
+    private func expect(_ sut: FeedStore, toRetrieve expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line){
         
         let exp = expectation(description: "Wait for cache retrieval")
         
@@ -269,12 +269,12 @@ private extension CodableFeedStoreTests{
         wait(for: [exp], timeout: 1.0)
     }
     
-    private func expect(_ sut: CodableFeedStore, toRetrieveTwice expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line){
+    private func expect(_ sut: FeedStore, toRetrieveTwice expectedResult: RetrieveCachedFeedResult, file: StaticString = #filePath, line: UInt = #line){
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
     }
     
-    private func deleteCache(from sut: CodableFeedStore) -> Error?{
+    private func deleteCache(from sut: FeedStore) -> Error?{
         let exp = expectation(description: "Wait for cache deletion")
         
         var deletionError: Error?
