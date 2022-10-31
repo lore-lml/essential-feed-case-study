@@ -6,7 +6,6 @@
 //  Copyright © 2022 Essential Developer. All rights reserved.
 //
 
-
 import XCTest
 import EssentialFeed
 
@@ -32,7 +31,9 @@ final class CoreDataFeedStoreTests: XCTestCase, FailableFeedStore {
     }
     
     func test_retrieve_hasNoSideEffectsOnNonEmptyCache(){
+        let sut = makeSUT()
         
+        assertThatRetrieveHasNoSideEffectsOnEmptyCache(on: sut)
     }
     
     func test_retrieve_deliversFailureOnRetrievalError(){
