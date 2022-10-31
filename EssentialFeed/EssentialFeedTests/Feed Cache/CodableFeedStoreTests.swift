@@ -1,5 +1,5 @@
 //
-//  FeedStoreTests.swift
+//  CodableFeedStoreTests.swift
 //  EssentialFeedTests
 //
 //  Created by Lorenzo Limoli on 28/10/22.
@@ -9,7 +9,7 @@
 import XCTest
 import EssentialFeed
 
-final class FeedStoreTests: XCTestCase, FailableFeedStore {
+final class CodableFeedStoreTests: XCTestCase, FailableFeedStore {
     
     override func setUp() {
         super.setUp()
@@ -144,7 +144,7 @@ final class FeedStoreTests: XCTestCase, FailableFeedStore {
 }
 
 
-private extension FeedStoreTests{
+private extension CodableFeedStoreTests{
     
     private var testSpecificStoreURL: URL{ cachesDirectory.appendingPathComponent("\(type(of: self)).store") }
     
