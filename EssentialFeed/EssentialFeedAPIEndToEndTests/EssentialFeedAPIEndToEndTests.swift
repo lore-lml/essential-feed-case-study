@@ -13,17 +13,17 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
 
     func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData(){
         switch getFeedResult(){
-        case .success(let items):
-            XCTAssertEqual(items.count, 8, "Expected 8 items in the test account feed. Got \(items.count).")
+        case .success(let imageFeed):
+            XCTAssertEqual(imageFeed.count, 8, "Expected 8 images in the test account image feed. Got \(imageFeed.count).")
             // In this case is preferrable write single lines of codes instead of a for loop because we know ho much items it will returns and they are not so many. This will enable a much clear error finding in case of errors
-            XCTAssertEqual(items[0], expectedItem(at: 0))
-            XCTAssertEqual(items[1], expectedItem(at: 1))
-            XCTAssertEqual(items[2], expectedItem(at: 2))
-            XCTAssertEqual(items[3], expectedItem(at: 3))
-            XCTAssertEqual(items[4], expectedItem(at: 4))
-            XCTAssertEqual(items[5], expectedItem(at: 5))
-            XCTAssertEqual(items[6], expectedItem(at: 6))
-            XCTAssertEqual(items[7], expectedItem(at: 7))
+            XCTAssertEqual(imageFeed[0], expectedImage(at: 0))
+            XCTAssertEqual(imageFeed[1], expectedImage(at: 1))
+            XCTAssertEqual(imageFeed[2], expectedImage(at: 2))
+            XCTAssertEqual(imageFeed[3], expectedImage(at: 3))
+            XCTAssertEqual(imageFeed[4], expectedImage(at: 4))
+            XCTAssertEqual(imageFeed[5], expectedImage(at: 5))
+            XCTAssertEqual(imageFeed[6], expectedImage(at: 6))
+            XCTAssertEqual(imageFeed[7], expectedImage(at: 7))
             
         case .failure(let err):
             XCTFail("Expected successful feed result, got \(err) instead")
@@ -56,10 +56,10 @@ private extension EssentialFeedAPIEndToEndTests{
         return receivedResult
     }
     
-    func expectedItem(at index: Int) -> FeedItem{
+    func expectedImage(at index: Int) -> FeedImage{
         .init(
             id:             FeedItemSample.id(at: index),
-            imageURL:       FeedItemSample.imageURL(at: index),
+            url:            FeedItemSample.imageURL(at: index),
             description:    FeedItemSample.description(at: index),
             location:       FeedItemSample.location(at: index)
         )
