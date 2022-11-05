@@ -8,21 +8,18 @@
 
 import Foundation
 
-public enum CachedFeed{
-    case empty
-    case found(feed: [LocalFeedImage], timestamp: Date)
-}
+public typealias CachedFeed = (feed: [LocalFeedImage], timestamp: Date)
 
 public extension FeedStore.RetrievalResult{
     static func found(feed: [LocalFeedImage], timestamp: Date) -> FeedStore.RetrievalResult{
-        .success(.found(feed: feed, timestamp: timestamp))
+        .success(CachedFeed(feed: feed, timestamp: timestamp))
     }
     
-    static var empty: FeedStore.RetrievalResult{ .success(.empty) }
+    static var empty: FeedStore.RetrievalResult{ .success(nil) }
 }
 
 public protocol FeedStore{
-    typealias RetrievalResult = Swift.Result<CachedFeed, Error>
+    typealias RetrievalResult = Swift.Result<CachedFeed?, Error>
     typealias RetrievalCompletion = (RetrievalResult) -> Void
     typealias InsertionCompletion = (Error?) -> Void
     typealias DeletionCompletion = (Error?) -> Void
