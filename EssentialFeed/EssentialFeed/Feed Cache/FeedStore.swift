@@ -10,14 +10,6 @@ import Foundation
 
 public typealias CachedFeed = (feed: [LocalFeedImage], timestamp: Date)
 
-public extension FeedStore.RetrievalResult{
-    static func found(feed: [LocalFeedImage], timestamp: Date) -> FeedStore.RetrievalResult{
-        .success(CachedFeed(feed: feed, timestamp: timestamp))
-    }
-    
-    static var empty: FeedStore.RetrievalResult{ .success(nil) }
-}
-
 public protocol FeedStore{
     typealias RetrievalResult = Swift.Result<CachedFeed?, Error>
     typealias RetrievalCompletion = (RetrievalResult) -> Void

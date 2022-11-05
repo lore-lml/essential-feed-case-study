@@ -37,3 +37,11 @@ extension Date{
         return self + seconds
     }
 }
+
+extension FeedStore.RetrievalResult{
+    static func found(feed: [LocalFeedImage], timestamp: Date) -> FeedStore.RetrievalResult{
+        .success(CachedFeed(feed: feed, timestamp: timestamp))
+    }
+    
+    static var empty: FeedStore.RetrievalResult{ .success(nil) }
+}
