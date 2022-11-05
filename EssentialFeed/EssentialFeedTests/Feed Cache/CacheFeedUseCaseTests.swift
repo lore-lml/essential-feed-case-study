@@ -132,8 +132,15 @@ extension CacheFeedUseCaseTests{
         let exp = expectation(description: "Wating for save completion")
         
         var receivedError: Error?
-        sut.save(uniqueImageFeed().models){ error in
-            receivedError = error
+        sut.save(uniqueImageFeed().models){ saveResult in
+            
+            switch saveResult{
+            case .failure(let error):
+                receivedError = error
+                
+            case .success:
+                break
+            }
             exp.fulfill()
         }
         

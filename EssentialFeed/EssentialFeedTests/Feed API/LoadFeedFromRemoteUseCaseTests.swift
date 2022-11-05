@@ -137,10 +137,7 @@ private extension LoadFeedFromRemoteUseCaseTests{
             "description": model.description,
             "location": model.location
         ]
-            .reduce(into: [String: Any]()) { (acc, e) in
-                guard let value = e.value else { return }
-                acc[e.key] = value
-            }
+            .compactMapValues{ $0 }
         
         return (model, json)
     }
@@ -182,13 +179,13 @@ private extension LoadFeedFromRemoteUseCaseTests{
     class HTTPCLientSpy: HTTPClient{
         
         
-        private var messages = [(url: URL, completion: (HTTPClientResult) -> Void)]()
+        private var messages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
         
         var requestedURLs: [URL]{
             messages.map(\.url)
         }
         
-        func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void){
+        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void){
             messages.append((url, completion))
         }
         
