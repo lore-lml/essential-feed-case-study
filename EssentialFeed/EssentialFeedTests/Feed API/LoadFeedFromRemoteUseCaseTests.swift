@@ -137,10 +137,7 @@ private extension LoadFeedFromRemoteUseCaseTests{
             "description": model.description,
             "location": model.location
         ]
-            .reduce(into: [String: Any]()) { (acc, e) in
-                guard let value = e.value else { return }
-                acc[e.key] = value
-            }
+            .compactMapValues{ $0 }
         
         return (model, json)
     }
