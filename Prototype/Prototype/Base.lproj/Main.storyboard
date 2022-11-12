@@ -8,23 +8,33 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--My Feed-->
         <scene sceneID="QGY-rf-BDQ">
             <objects>
-                <tableViewController id="1IG-Oj-Chb" sceneMemberID="viewController">
+                <tableViewController id="1IG-Oj-Chb" customClass="FeedViewController" customModule="Prototype" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="VP2-Z1-GG0">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="erq-XY-Zrm">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="16"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="ep5-mf-8KO">
+                            <rect key="frame" x="0.0" y="658" width="393" height="16"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedImageCell" rowHeight="564" id="yTC-Uy-5Px">
-                                <rect key="frame" x="0.0" y="50" width="393" height="564"/>
+                                <rect key="frame" x="0.0" y="66" width="393" height="564"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yTC-Uy-5Px" id="YlF-HI-y0h">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="564"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Q0w-RB-dR5">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Q0w-RB-dR5">
                                             <rect key="frame" x="20" y="17" width="353" height="530"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NU5-RG-qXC" userLabel="Location Container">
@@ -60,7 +70,7 @@ Location</string>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BsP-uQ-ZFg" userLabel="Image Container">
                                                     <rect key="frame" x="0.0" y="52.333333333333314" width="353" height="353"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EST-eS-NVh">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="EST-eS-NVh">
                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="353"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="EST-eS-NVh" secondAttribute="height" id="kQp-v9-YeS"/>
@@ -82,7 +92,7 @@ Location</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70l-9k-qG6">
-                                                    <rect key="frame" x="0.0" y="415.33333333333331" width="44.666666666666664" height="114.66666666666669"/>
+                                                    <rect key="frame" x="0.0" y="415.33333333333331" width="353" height="114.66666666666669"/>
                                                     <string key="text">Line 1
 Line 2
 Line 3
@@ -113,7 +123,7 @@ Line 6</string>
                             <outlet property="delegate" destination="1IG-Oj-Chb" id="6QO-pu-EGz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="5CT-We-mjo"/>
+                    <navigationItem key="navigationItem" title="My Feed" id="5CT-We-mjo"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rCv-bZ-dbV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
