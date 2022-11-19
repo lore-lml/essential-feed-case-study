@@ -12,7 +12,13 @@ extension UIView{
     private var shimmerAnimationKey: String{ "shimmer" }
     
     public var isShimmering: Bool{
-        layer.mask?.animation(forKey: shimmerAnimationKey) != nil
+        get{
+            layer.mask?.animation(forKey: shimmerAnimationKey) != nil
+        }
+        set{
+            let action = newValue ? startShimmering : stopShimmering
+            action()
+        }
     }
     
     func startShimmering(){
