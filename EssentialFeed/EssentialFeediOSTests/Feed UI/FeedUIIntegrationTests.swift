@@ -1,5 +1,5 @@
 //
-//  FeedViewControllerTests.swift
+//  FeedUIIntegrationTests.swift
 //  EssentialFeediOSTests
 //
 //  Created by Lorenzo Limoli on 13/11/22.
@@ -10,7 +10,7 @@ import XCTest
 import EssentialFeed
 import EssentialFeediOS
 
-final class FeedViewControllerTests: XCTestCase {
+final class FeedUIIntegrationTests: XCTestCase {
     
     func test_feedView_hasTitle(){
         let (sut, _) = makeSUT()
@@ -262,7 +262,7 @@ final class FeedViewControllerTests: XCTestCase {
 }
 
 // MARK: Helpers
-private extension FeedViewControllerTests{
+private extension FeedUIIntegrationTests{
     
     func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy){
         let loader = LoaderSpy()

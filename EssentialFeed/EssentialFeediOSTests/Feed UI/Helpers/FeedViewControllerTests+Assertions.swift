@@ -1,5 +1,5 @@
 //
-//  FeedViewControllerTests+Assertions.swift
+//  FeedUIIntegrationTests+Assertions.swift
 //  EssentialFeediOSTests
 //
 //  Created by Lorenzo Limoli on 19/11/22.
@@ -10,7 +10,7 @@ import XCTest
 import EssentialFeediOS
 import EssentialFeed
 
-extension FeedViewControllerTests{
+extension FeedUIIntegrationTests{
     func assertThat(_ sut: FeedViewController, isRendering feed: [FeedImage], file: StaticString = #file, line: UInt = #line){
         guard sut.numberOfRenderedFeedImageViews() == feed.count else{
             return XCTFail("Expected \(feed.count) images, got \(sut.numberOfRenderedFeedImageViews()) instead.", file: file, line: line)
