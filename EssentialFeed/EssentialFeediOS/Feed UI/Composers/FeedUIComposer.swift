@@ -12,13 +12,12 @@ import EssentialFeed
 public enum FeedUIComposer{
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController{
         
-        let feedPresenter = FeedPresenter()
-        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader, presenter: feedPresenter)
+        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader)
         let refreshController = FeedRefreshViewController(delegate: presentationAdapter)
         let feedController = FeedViewController(refreshController: refreshController)
+        let feedPresenter = FeedPresenter(feedView: FeedViewAdapter(controller: feedController, imageLoader: imageLoader), loadingView: WeakRefVirtualProxy(refreshController))
         
-        feedPresenter.loadingView = WeakRefVirtualProxy(refreshController)
-        feedPresenter.feedView = FeedViewAdapter(controller: feedController, imageLoader: imageLoader)
+        presentationAdapter.presenter = feedPresenter
         
         return feedController
     }
@@ -57,22 +56,22 @@ extension WeakRefVirtualProxy: FeedLoadingView where T: FeedLoadingView{
 
 private final class FeedLoaderPresentationAdapter: FeedRefreshViewControllerDelegate{
     private let feedLoader: FeedLoader
-    private let presenter: FeedPresenter
+    var presenter: FeedPresenter?
     
-    init(feedLoader: FeedLoader, presenter: FeedPresenter) {
+    init(feedLoader: FeedLoader) {
         self.feedLoader = feedLoader
-        self.presenter = presenter
     }
     
     func didRequestFeedRefresh() {
-        presenter.didStartLoadingFeed()
+        presenter?.didStartLoadingFeed()
+        
         feedLoader.load { [weak self] result in
             switch result{
             case .success(let feed):
-                self?.presenter.didFinishedLoadingFeed(with: feed)
+                self?.presenter?.didFinishedLoadingFeed(with: feed)
                 
             case .failure(let err):
-                self?.presenter.didFinishedLoadingFeed(with: err)
+                self?.presenter?.didFinishedLoadingFeed(with: err)
             }
         }
     }
