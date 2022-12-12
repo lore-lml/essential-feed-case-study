@@ -65,8 +65,7 @@ extension FeedViewController: FeedLoadingView{
     }
     
     func display(_ viewModel: FeedLoadingViewModel) {
-        let action = viewModel.isLoading ? refreshControl?.beginRefreshing : refreshControl?.endRefreshing
-        action?()
+        refreshControl?.update(isRefreshing: viewModel.isLoading)
     }
 }
 
