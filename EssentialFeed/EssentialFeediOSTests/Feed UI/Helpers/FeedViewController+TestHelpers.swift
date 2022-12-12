@@ -12,7 +12,7 @@ import EssentialFeediOS
 extension FeedViewController{
     var isShowingLoadingIndicator: Bool{ refreshControl?.isRefreshing == true }
     
-    var errorMessage: String? { errorView.message }
+    var errorMessage: String? { errorView?.message }
     
     var feedImagesSection: Int{ 0 }
     
