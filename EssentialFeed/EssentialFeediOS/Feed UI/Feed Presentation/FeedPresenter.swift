@@ -21,10 +21,6 @@ protocol FeedErrorView {
     func display(_ viewModel: FeedErrorViewModel)
 }
 
-struct FeedErrorViewModel {
-    let message: String?
-}
-
 final class FeedPresenter{
     
     private let feedView: FeedView
