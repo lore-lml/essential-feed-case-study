@@ -176,9 +176,6 @@ class RemoteFeedImageDataLoaderTests: XCTestCase {
 }
 
 private extension RemoteFeedImageDataLoaderTests{
-    var anyData: Data {
-        .init("any data".utf8)
-    }
 
     private func failure(_ error: RemoteFeedImageDataLoader.Error) -> FeedImageDataLoader.Result {
         return .failure(error)
