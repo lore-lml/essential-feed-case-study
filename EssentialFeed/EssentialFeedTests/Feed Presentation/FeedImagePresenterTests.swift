@@ -107,6 +107,18 @@ final class FeedImagePresenterTests: XCTestCase {
         
         XCTAssertEqual(view.messages, [.loading, .failure])
     }
+    
+    func test_didFinishLoadingImageDataWithData_sendSuccessMessage(){
+        
+        let (sut, view) = makeSUT()
+        let feedImage = uniqueImageFeed().models[0]
+        
+        sut.didStartLoadingImageData(for: feedImage)
+        
+        sut.didFinishLoadingImageData(with: Data(), for: feedImage)
+        
+        XCTAssertEqual(view.messages, [.loading, .success])
+    }
 }
 
 private extension FeedImagePresenterTests{
