@@ -96,7 +96,7 @@ final class FeedImagePresenterTests: XCTestCase {
         XCTAssertEqual(view.messages, [.loading, .failure])
     }
     
-    func test_didFinishLoadingImageDataWithData_sendFailureMessage(){
+    func test_didFinishLoadingImageDataWithData_sendFailureMessageIfTransformerFails(){
         
         let (sut, view) = makeSUT(imageTransformer: { _ in nil })
         let feedImage = uniqueImageFeed().models[0]
@@ -108,7 +108,7 @@ final class FeedImagePresenterTests: XCTestCase {
         XCTAssertEqual(view.messages, [.loading, .failure])
     }
     
-    func test_didFinishLoadingImageDataWithData_sendSuccessMessage(){
+    func test_didFinishLoadingImageDataWithData_sendSuccessMessageIfTransformerSucceeds(){
         
         let (sut, view) = makeSUT()
         let feedImage = uniqueImageFeed().models[0]
