@@ -178,6 +178,9 @@ private extension LoadFeedFromRemoteUseCaseTests{
     
     class HTTPCLientSpy: HTTPClient{
         
+        private struct Task: HTTPClientTask {
+            func cancel() {}
+        }
         
         private var messages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
         
@@ -185,8 +188,9 @@ private extension LoadFeedFromRemoteUseCaseTests{
             messages.map(\.url)
         }
         
-        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void){
+        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) -> EssentialFeed.HTTPClientTask {
             messages.append((url, completion))
+            return Task()
         }
         
         func complete(with clientError: Error, at index: Int = 0){
