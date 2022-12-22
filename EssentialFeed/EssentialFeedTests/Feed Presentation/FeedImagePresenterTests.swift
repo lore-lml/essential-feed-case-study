@@ -87,37 +87,19 @@ final class FeedImagePresenterTests: XCTestCase {
     func test_didFinishLoadingImageDataWithError_sendFailureMessage(){
         
         let (sut, view) = makeSUT()
-        let feedImage = uniqueImageFeed().models[0]
-        
-        sut.didStartLoadingImageData(for: feedImage)
-        
-        sut.didFinishLoadingImageData(with: anyNSError, for: feedImage)
-        
-        XCTAssertEqual(view.messages, [.loading, .failure])
+        expect(sut, toSend: [.loading, .failure], for: .failure(anyNSError), to: view)
     }
     
     func test_didFinishLoadingImageDataWithData_sendFailureMessageIfTransformerFails(){
         
         let (sut, view) = makeSUT(imageTransformer: { _ in nil })
-        let feedImage = uniqueImageFeed().models[0]
-        
-        sut.didStartLoadingImageData(for: feedImage)
-        
-        sut.didFinishLoadingImageData(with: Data(), for: feedImage)
-        
-        XCTAssertEqual(view.messages, [.loading, .failure])
+        expect(sut, toSend: [.loading, .failure], for: .success(Data()), to: view)
     }
     
     func test_didFinishLoadingImageDataWithData_sendSuccessMessageIfTransformerSucceeds(){
         
         let (sut, view) = makeSUT()
-        let feedImage = uniqueImageFeed().models[0]
-        
-        sut.didStartLoadingImageData(for: feedImage)
-        
-        sut.didFinishLoadingImageData(with: Data(), for: feedImage)
-        
-        XCTAssertEqual(view.messages, [.loading, .success])
+        expect(sut, toSend: [.loading, .success], for: .success(Data()), to: view)
     }
 }
 
@@ -129,6 +111,22 @@ private extension FeedImagePresenterTests{
         trackForMemoryLeaks(view, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, view)
+    }
+    
+    func expect(_ sut: FeedImagePresenter<ViewSpy, Data>, toSend messages: [ViewSpy.Message], for result: Result<Data, Error>, to view: ViewSpy, file: StaticString = #file, line: UInt = #line){
+        
+        let feedImage = uniqueImageFeed().models[0]
+        
+        sut.didStartLoadingImageData(for: feedImage)
+        
+        switch result{
+        case let .success(data):
+            sut.didFinishLoadingImageData(with: data, for: feedImage)
+        case let .failure(err):
+            sut.didFinishLoadingImageData(with: err, for: feedImage)
+        }
+        
+        XCTAssertEqual(view.messages, messages, file: file, line: line)
     }
     
     final class ViewSpy: FeedImageView{
