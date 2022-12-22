@@ -49,7 +49,7 @@ final class FeedImagePresenterTests: XCTestCase {
         XCTAssertTrue(view.messages.isEmpty, "Expected no view messages")
     }
 
-    func test_didStartLoadingImageData_sendDisplayFeedMessage(){
+    func test_didStartLoadingImageData_sendLoadingMessage(){
         let (sut, view) = makeSUT()
         let feedImage = uniqueImageFeed().models[0]
         
