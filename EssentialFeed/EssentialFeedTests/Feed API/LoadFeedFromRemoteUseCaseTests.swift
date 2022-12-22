@@ -96,7 +96,7 @@ final class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     
     func test_load_doesNotDeliverResultAfeterSUTInstanceHasBeenDeallocated(){
         let url = URL(string: "http://a-url.com")!
-        let client = HTTPCLientSpy()
+        let client = HTTPClientSpy()
         var sut: RemoteFeedLoader? = .init(url: url, client: client)
         
         var capturedResults = [RemoteFeedLoader.Result]()
@@ -116,9 +116,9 @@ private extension LoadFeedFromRemoteUseCaseTests{
         url: URL = URL(string: "https://a-url.com")!,
         file: StaticString = #filePath,
         line: UInt = #line
-    ) -> (sut: RemoteFeedLoader, client: HTTPCLientSpy){
+    ) -> (sut: RemoteFeedLoader, client: HTTPClientSpy){
         
-        let client = HTTPCLientSpy()
+        let client = HTTPClientSpy()
         let sut = RemoteFeedLoader(url: url, client: client)
         
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -176,37 +176,4 @@ private extension LoadFeedFromRemoteUseCaseTests{
     
     func failure(_ error: RemoteFeedLoader.Error) -> RemoteFeedLoader.Result{ .failure(error) }
     
-    class HTTPCLientSpy: HTTPClient{
-        
-        private struct Task: HTTPClientTask {
-            func cancel() {}
-        }
-        
-        private var messages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
-        
-        var requestedURLs: [URL]{
-            messages.map(\.url)
-        }
-        
-        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) -> EssentialFeed.HTTPClientTask {
-            messages.append((url, completion))
-            return Task()
-        }
-        
-        func complete(with clientError: Error, at index: Int = 0){
-            messages[index].completion(.failure(clientError))
-        }
-        
-        func complete(withStatusCode code: Int, data: Data, at index: Int = 0){
-            let url = messages[index].url
-            let response = HTTPURLResponse(
-                url:            url,
-                statusCode:     code,
-                httpVersion:    nil,
-                headerFields:   nil
-            )!
-            
-            messages[index].completion(.success((data, response)))
-        }
-    }
 }
