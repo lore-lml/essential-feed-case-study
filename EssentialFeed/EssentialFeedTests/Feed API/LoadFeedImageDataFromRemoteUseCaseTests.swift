@@ -1,5 +1,5 @@
 //
-//  RemoteFeedImageDataLoaderTests.swift
+//  LoadFeedImageDataFromRemoteUseCaseTests.swift
 //  EssentialFeedTests
 //
 //  Created by Lorenzo Limoli on 22/12/22.
@@ -12,7 +12,7 @@
 import XCTest
 import EssentialFeed
 
-class RemoteFeedImageDataLoaderTests: XCTestCase {
+class LoadFeedImageDataFromRemoteUseCaseTests: XCTestCase {
 
     func test_init_doesNotPerformAnyURLRequest() {
         let (_, client) = makeSUT()
@@ -122,7 +122,7 @@ class RemoteFeedImageDataLoaderTests: XCTestCase {
     }
 }
 
-private extension RemoteFeedImageDataLoaderTests{
+private extension LoadFeedImageDataFromRemoteUseCaseTests{
 
     private func failure(_ error: RemoteFeedImageDataLoader.Error) -> FeedImageDataLoader.Result {
         return .failure(error)
