@@ -16,23 +16,35 @@ final class FeedImageDataStoreSpy: FeedImageDataStore{
         case insert(data: Data, for: URL)
     }
     
-    private var completions = [(FeedImageDataStore.RetrievalResult) -> Void]()
+    private var retrievalCompletions = [(FeedImageDataStore.RetrievalResult) -> Void]()
+    private var insertionCompletions = [(FeedImageDataStore.InsertionResult) -> Void]()
     private(set) var receivedMessages = [Message]()
     
+    
+}
+
+extension FeedImageDataStoreSpy{
     func retrieve(dataForURL url: URL, completion: @escaping(FeedImageDataStore.RetrievalResult) -> Void) {
         receivedMessages.append(.retrieve(dataFor: url))
-        completions.append(completion)
-    }
-    
-    func insert(_ data: Data, for url: URL, completion: @escaping (InsertionResult) -> Void) {
-        receivedMessages.append(.insert(data: data, for: url))
+        retrievalCompletions.append(completion)
     }
     
     func complete(with error: Error, at index: Int = 0){
-        completions[index](.failure(error))
+        retrievalCompletions[index](.failure(error))
     }
     
     func complete(with data: Data?, at index: Int = 0){
-        completions[index](.success(data))
+        retrievalCompletions[index](.success(data))
+    }
+}
+
+extension FeedImageDataStoreSpy{
+    func insert(_ data: Data, for url: URL, completion: @escaping (InsertionResult) -> Void) {
+        receivedMessages.append(.insert(data: data, for: url))
+        insertionCompletions.append(completion)
+    }
+    
+    func completeInsertion(with error: Error, at index: Int = 0){
+        insertionCompletions[index](.failure(error))
     }
 }

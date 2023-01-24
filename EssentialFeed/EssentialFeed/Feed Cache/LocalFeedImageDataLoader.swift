@@ -9,7 +9,15 @@
 import Foundation
 
 public final class LocalFeedImageDataLoader: FeedImageDataLoader{
+    private let store: FeedImageDataStore
     
+    public init(store: FeedImageDataStore){
+        self.store = store
+    }
+}
+
+// MARK: LOAD USE CASE
+public extension LocalFeedImageDataLoader{
     private class Task: FeedImageDataLoaderTask{
         private var completion: ((FeedImageDataLoader.Result) -> Void)?
         
@@ -30,27 +38,21 @@ public final class LocalFeedImageDataLoader: FeedImageDataLoader{
         }
     }
     
-    public enum Error: Swift.Error{
+    enum LoadError: Swift.Error{
         case failed
         case notFound
     }
     
-    private let store: FeedImageDataStore
-    
-    public init(store: FeedImageDataStore){
-        self.store = store
-    }
-    
-    public func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
+    func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
         let task = Task(completion: completion)
         store.retrieve(dataForURL: url){ [weak self] result in
             guard self != nil else { return }
             
             task.complete(with: result
-                .mapError{ _ in Error.failed }
+                .mapError{ _ in LoadError.failed }
                 .flatMap{ data in
                     guard let data else{
-                        return .failure(Error.notFound)
+                        return .failure(LoadError.notFound)
                     }
                     
                     return .success(data)
@@ -58,10 +60,19 @@ public final class LocalFeedImageDataLoader: FeedImageDataLoader{
         }
         return task
     }
+}
+
+// MARK: SAVE USE CASE
+public extension LocalFeedImageDataLoader{
+    typealias SaveResult = Result<Void, Swift.Error>
     
-    public typealias SaveResult = Result<Void, Swift.Error>
+    enum SaveError: Swift.Error{
+        case failed
+    }
     
-    public func save(_ data: Data, for url: URL, completion: @escaping (SaveResult) -> Void) {
-        store.insert(data, for: url) { _ in }
+    func save(_ data: Data, for url: URL, completion: @escaping (SaveResult) -> Void) {
+        store.insert(data, for: url) { _ in
+            completion(.failure(SaveError.failed))
+        }
     }
 }

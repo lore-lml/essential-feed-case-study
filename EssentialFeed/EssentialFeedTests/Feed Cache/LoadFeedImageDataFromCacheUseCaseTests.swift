@@ -96,11 +96,11 @@ private extension LoadFeedImageDataFromCacheUseCaseTests{
     }
     
     func failed() -> FeedImageDataLoader.Result{
-        return .failure(LocalFeedImageDataLoader.Error.failed)
+        return .failure(LocalFeedImageDataLoader.LoadError.failed)
     }
     
     func notFound() -> FeedImageDataLoader.Result{
-        return .failure(LocalFeedImageDataLoader.Error.notFound);
+        return .failure(LocalFeedImageDataLoader.LoadError.notFound);
     }
     
     func expect(_ sut: LocalFeedImageDataLoader, toCompleteWith expectedResult: FeedImageDataLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line){
@@ -111,8 +111,8 @@ private extension LoadFeedImageDataFromCacheUseCaseTests{
             case let (.success(receivedData), .success(expectedData)):
                 XCTAssertEqual(receivedData, expectedData, file: file, line: line)
 
-            case (.failure(let receivedError as LocalFeedImageDataLoader.Error),
-                  .failure(let expectedError as LocalFeedImageDataLoader.Error)):
+            case (.failure(let receivedError as LocalFeedImageDataLoader.LoadError),
+                  .failure(let expectedError as LocalFeedImageDataLoader.LoadError)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)
 
             default:
