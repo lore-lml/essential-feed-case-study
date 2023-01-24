@@ -27,12 +27,20 @@ final class CacheFeedImageDataUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.insert(data: data, for: url)])
     }
     
-    func test_saveImageDataForURL_requestsImageDataInsertionIntoStore() {
+    func test_saveImageDataFromURL_failsOnStoreInsertionError() {
         let (sut, store) = makeSUT()
         
         expect(sut, toCompleteWith: failed(), when: {
             let insertionError = anyNSError
             store.completeInsertion(with: insertionError)
+        })
+    }
+    
+    func test_saveImageDataFromURL_succeedsOnSuccessfulStoreInsertion() {
+        let (sut, store) = makeSUT()
+        
+        expect(sut, toCompleteWith: success(), when: {
+            store.completeInsertionSuccessfully()
         })
     }
 }
@@ -48,9 +56,9 @@ private extension CacheFeedImageDataUseCaseTests{
         return (sut, store)
     }
     
-    func failed() -> LocalFeedImageDataLoader.SaveResult{
-        .failure(LocalFeedImageDataLoader.SaveError.failed)
-    }
+    func failed() -> LocalFeedImageDataLoader.SaveResult{ .failure(LocalFeedImageDataLoader.SaveError.failed) }
+    
+    func success() -> LocalFeedImageDataLoader.SaveResult{ .success(()) }
     
     func expect(_ sut: LocalFeedImageDataLoader, toCompleteWith expectedResult: LocalFeedImageDataLoader.SaveResult, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line){
         
