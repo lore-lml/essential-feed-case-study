@@ -28,14 +28,26 @@ final class CoreDataFeedImageDataStoreTests: XCTestCase {
     }
     
     func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL() {
-            let sut = makeSUT()
-            let storedData = anyData
-            let matchingURL = URL(string: "http://a-url.com")!
+        let sut = makeSUT()
+        let storedData = anyData
+        let matchingURL = URL(string: "http://a-url.com")!
 
-            insert(storedData, for: matchingURL, into: sut)
+        insert(storedData, for: matchingURL, into: sut)
 
-            expect(sut, toCompleteRetrievalWith: found(storedData), for: matchingURL)
-        }
+        expect(sut, toCompleteRetrievalWith: found(storedData), for: matchingURL)
+    }
+    
+    func test_retrieveImageData_deliversLastInsertedValue() {
+        let sut = makeSUT()
+        let firstStoredData = Data("first".utf8)
+        let lastStoredData = Data("last".utf8)
+        let url = anyURL
+        
+        insert(firstStoredData, for: url, into: sut)
+        insert(lastStoredData, for: url, into: sut)
+        
+        expect(sut, toCompleteRetrievalWith: found(lastStoredData), for: url)
+    }
 }
 
 // - MARK: Helpers
