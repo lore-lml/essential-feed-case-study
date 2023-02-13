@@ -27,7 +27,7 @@ public final class FeedImageLoaderWithFallbackComposite: FeedImageDataLoader{
     }
     
     public func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> EssentialFeed.FeedImageDataLoaderTask {
-        var taskWrapper = TaskWrapper()
+        let taskWrapper = TaskWrapper()
         taskWrapper.wrapped = primaryLoader.loadImageData(from: url) { [weak self] result in
             
             switch result{
