@@ -47,20 +47,6 @@ private extension FeedLoaderWithLocalFallbackCompositeTests{
         return sut
     }
     
-    func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line){
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
-        }
-    }
-    
-    func uniqueFeed() -> [FeedImage]{
-        return [
-            FeedImage(url: .init(string: "http://any-url.com")!, description: "any", location: "any")
-        ]
-    }
-    
-    var anyNSError: NSError{ .init(domain: "Any error", code: -1) }
-    
     func expect(_ sut: FeedLoader, toCompleteWith expectedResult: FeedLoader.Result, file: StaticString = #filePath, line: UInt = #line){
         let exp = expectation(description: "Wait fo load completion")
         
