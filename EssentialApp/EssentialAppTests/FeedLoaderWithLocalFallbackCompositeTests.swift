@@ -38,8 +38,8 @@ final class FeedLoaderWithLocalFallbackCompositeTests: XCTestCase {
 private extension FeedLoaderWithLocalFallbackCompositeTests{
     
     func makeSUT(primaryResult: FeedLoader.Result, fallbackResult: FeedLoader.Result, file: StaticString = #filePath, line: UInt = #line) -> FeedLoader{
-        let remoteLoader = LoaderStub(result: primaryResult)
-        let localLoader = LoaderStub(result: fallbackResult)
+        let remoteLoader = FeedLoaderStub(result: primaryResult)
+        let localLoader = FeedLoaderStub(result: fallbackResult)
         let sut = FeedLoaderWithFallbackComposite(primaryLoader: remoteLoader, fallbackLoader: localLoader)
         trackForMemoryLeaks(remoteLoader)
         trackForMemoryLeaks(localLoader)
@@ -66,18 +66,5 @@ private extension FeedLoaderWithLocalFallbackCompositeTests{
         }
         
         wait(for: [exp], timeout: 1.0)
-    }
-    
-    final class LoaderStub: FeedLoader{
-        
-        private let result: FeedLoader.Result
-        
-        init(result: FeedLoader.Result) {
-            self.result = result
-        }
-        
-        func load(completion: @escaping (FeedLoader.Result) -> Void) {
-            completion(result)
-        }
     }
 }
