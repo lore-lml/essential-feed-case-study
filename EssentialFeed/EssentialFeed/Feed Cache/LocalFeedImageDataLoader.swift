@@ -63,14 +63,14 @@ public extension LocalFeedImageDataLoader{
 }
 
 // MARK: SAVE USE CASE
-public extension LocalFeedImageDataLoader{
-    typealias SaveResult = Result<Void, Swift.Error>
+extension LocalFeedImageDataLoader: FeedImageDataCache{
+    public typealias SaveResult = Result<Void, Swift.Error>
     
-    enum SaveError: Swift.Error{
+    public enum SaveError: Swift.Error{
         case failed
     }
     
-    func save(_ data: Data, for url: URL, completion: @escaping (SaveResult) -> Void) {
+    public func save(_ data: Data, for url: URL, completion: @escaping (SaveResult) -> Void) {
         store.insert(data, for: url) { [weak self] result in
             guard self != nil else { return }
             completion(result.mapError{ _ in SaveError.failed })
