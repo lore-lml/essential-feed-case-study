@@ -98,6 +98,9 @@ Location</string>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="C8n-gC-VT5" secondAttribute="height" id="uVi-p4-5ae"/>
                                                             </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="feed-image-view"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgw-qX-dzk">
                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="353"/>
@@ -112,6 +115,9 @@ Location</string>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <bool key="isElement" value="YES"/>
+                                                    </accessibility>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="Pgw-qX-dzk" secondAttribute="trailing" id="1qQ-im-Ctp"/>
                                                         <constraint firstAttribute="bottom" secondItem="Pgw-qX-dzk" secondAttribute="bottom" id="3kx-PN-OEX"/>
@@ -154,6 +160,9 @@ Line 6</string>
                                         <constraint firstItem="k9I-xw-b32" firstAttribute="leading" secondItem="g2K-fD-E8a" secondAttribute="leadingMargin" id="ziC-z1-D23"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="feed-image-cell"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="SqI-FY-Og4" id="UWp-il-t7y"/>
                                     <outlet property="feedImageContainer" destination="6cG-Ts-i3N" id="TgY-kh-Pcb"/>
