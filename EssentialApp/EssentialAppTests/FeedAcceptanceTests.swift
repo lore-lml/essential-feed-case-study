@@ -38,6 +38,22 @@ final class FeedAcceptanceTests: XCTestCase {
         
         XCTAssertEqual(feed.numberOfRenderedFeedImageViews(), 0)
     }
+    
+    func test_onEnteringBackground_deleteExpiredFeedCache(){
+        let store = InMemoryFeedStore.withExpiredFeedCache
+        
+        enterBackground(with: store)
+        
+        XCTAssertNil(store.feedCache, "Expected to delete expired cache")
+    }
+    
+    func test_onEnteringBackground_keepsNonExpiredFeedCache(){
+        let store = InMemoryFeedStore.withNonExpiredFeedCache
+        
+        enterBackground(with: store)
+        
+        XCTAssertNotNil(store.feedCache, "Expected to keep  non-expired cache")
+    }
 }
 
 // MARK: Helepers
@@ -53,6 +69,12 @@ extension FeedAcceptanceTests{
         let nav = sut.window?.rootViewController as? UINavigationController
         return nav?.topViewController as! FeedViewController
     }
+    
+    func enterBackground(with store: InMemoryFeedStore){
+        let sut = SceneDelegate(httpClient: HTTPClientStub.offline, store: store)
+        sut.sceneWillResignActive(UIApplication.shared.connectedScenes.first!)
+    }
+    
     final class HTTPClientStub: HTTPClient{
         class Task: HTTPClientTask{
             func cancel(){}
@@ -82,6 +104,10 @@ extension FeedAcceptanceTests{
         var feedCache: CachedFeed?
         var feedImageDataCache: [URL: Data] = [:]
         
+        private init(feedCache: CachedFeed? = nil) {
+            self.feedCache = feedCache
+        }
+        
         func retrieve(completion: @escaping FeedStore.RetrievalCompletion) {
             completion(.success(feedCache))
         }
@@ -107,6 +133,14 @@ extension FeedAcceptanceTests{
         
         static var empty: InMemoryFeedStore{
             InMemoryFeedStore()
+        }
+        
+        static var withExpiredFeedCache: InMemoryFeedStore{
+            InMemoryFeedStore(feedCache: (feed: [], timestamp: Date.distantPast))
+        }
+        
+        static var withNonExpiredFeedCache: InMemoryFeedStore{
+            InMemoryFeedStore(feedCache: (feed: [], timestamp: Date()))
         }
     }
     
