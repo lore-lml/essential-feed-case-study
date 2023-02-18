@@ -8,6 +8,7 @@
 
 import UIKit
 import EssentialFeed
+import EssentialFeediOS
 
 public enum FeedUIComposer{
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController{
