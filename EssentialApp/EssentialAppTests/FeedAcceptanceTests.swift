@@ -34,7 +34,9 @@ final class FeedAcceptanceTests: XCTestCase {
     }
     
     func test_onLaunch_displaysEmptyFeedWhenCustomerHasNoConnectivityAndNoCache(){
+        let feed = launch(httpClient: .offline, store: .empty)
         
+        XCTAssertEqual(feed.numberOfRenderedFeedImageViews(), 0)
     }
 }
 
@@ -42,8 +44,8 @@ final class FeedAcceptanceTests: XCTestCase {
 extension FeedAcceptanceTests{
     
     func launch(httpClient: HTTPClientStub = .offline, store: InMemoryFeedStore = .empty) -> FeedViewController{
-        let store = InMemoryFeedStore.empty
-        let httpClient = HTTPClientStub.online(response(for:))
+        let store = store
+        let httpClient = httpClient
         let sut = SceneDelegate(httpClient: httpClient, store: store)
         sut.window = UIWindow()
         sut.configureWindow()
@@ -68,11 +70,11 @@ extension FeedAcceptanceTests{
         }
         
         static var offline: HTTPClientStub{
-            HTTPClientStub(stub: {_ in .failure(NSError(domain: "offline", code: 0))})
+            HTTPClientStub(stub: { _ in .failure(NSError(domain: "offline", code: 0)) })
         }
         
         static func online(_ stub: @escaping (URL) -> (Data, HTTPURLResponse)) -> HTTPClientStub{
-            HTTPClientStub(stub: { url in .success(stub(url))})
+            HTTPClientStub(stub: { url in .success(stub(url)) })
         }
     }
     
