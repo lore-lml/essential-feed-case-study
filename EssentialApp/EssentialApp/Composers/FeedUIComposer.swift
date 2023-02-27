@@ -10,10 +10,10 @@ import UIKit
 import EssentialFeed
 import EssentialFeediOS
 
-public enum FeedUIComposer{
-    public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController{
+enum FeedUIComposer{
+    static func feedComposedWith(feedLoader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> FeedViewController{
         
-        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader))
+        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: { feedLoader().dispatchOnMainQueue() })
         
         let feedController = FeedViewController.makeWith(
             delegate: presentationAdapter,
