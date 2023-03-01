@@ -89,9 +89,17 @@ final class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
     func test_load_deliversItemsOn2xxHTTPResponseWithJSONItems(){
         let (sut, client) = makeSUT()
         
-        let (item1, item1JSON) = makeItem(imageURL: URL(string: "http://a-url.com")!)
+        let (item1, item1JSON) = makeItem(
+            message: "a message",
+            createdAt: (date: .init(timeIntervalSince1970: 1598627222), iso8601String: "2020-08-28T15:07:02+00:00"),
+            username: "a username"
+        )
         
-        let (item2, item2JSON) = makeItem(description: "a description", location: "a location", imageURL: URL(string: "http://another-url.com")!)
+        let (item2, item2JSON) = makeItem(
+            message: "another message",
+            createdAt: (date: .init(timeIntervalSince1970: 1577881882), iso8601String: "2020-01-01T12:31:22+00:00"),
+            username: "another username"
+        )
         
         let items = [item1, item2]
         let itemsJson = [item1JSON, item2JSON]
@@ -139,17 +147,18 @@ private extension LoadImageCommentsFromRemoteUseCaseTests{
         return (sut: sut, client: client)
     }
     
-    private func makeItem(id: UUID = .init(), description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedImage, json: [String: Any]){
+    private func makeItem(id: UUID = .init(), message: String, createdAt: (date: Date, iso8601String: String), username: String) -> (model: ImageComment, json: [String: Any]){
         
-        let model = FeedImage(id: id, url: imageURL, description: description, location: location)
+        let model = ImageComment(id: id, message: message, createdAt: createdAt.date, username: username)
         
-        let json = [
-            "id": model.id.uuidString,
-            "image": model.url.absoluteString,
-            "description": model.description,
-            "location": model.location
+        let json: [String: Any] = [
+            "id": id.uuidString,
+            "message": message,
+            "created_at": createdAt.iso8601String,
+            "author": [
+                "username": username
+            ]
         ]
-            .compactMapValues{ $0 }
         
         return (model, json)
     }
