@@ -49,7 +49,7 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
 
 private extension EssentialFeedAPIEndToEndTests{
     func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> FeedLoader.Result?{
-        let loader = RemoteFeedLoader(url: feedTestServerURL, client: ephemeralClient())
+        let loader = RemoteLoader(url: feedTestServerURL, client: ephemeralClient(), mapper: FeedItemsMapper.map(_:from:))
         
         let exp = expectation(description: "Wait for load completion")
         var receivedResult: FeedLoader.Result?

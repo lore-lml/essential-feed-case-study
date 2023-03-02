@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         LocalFeedLoader(store: store, currentDate: Date.init)
     }()
     
-    private lazy var remoteFeedLoader: RemoteFeedLoader = RemoteFeedLoader(url: url, client: httpClient)
+    private lazy var remoteFeedLoader: RemoteLoader = RemoteLoader(url: url, client: httpClient, mapper: FeedItemsMapper.map(_:from:))
     
     convenience init(httpClient: HTTPClient, store: FeedStore & FeedImageDataStore) {
         self.init()
@@ -57,7 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         localFeedLoader.validateCache { _ in }
     }
     
-    private func makeRemoteFeedLoaderWithLocalFallback() -> RemoteFeedLoader.Publisher {
+    private func makeRemoteFeedLoaderWithLocalFallback() -> FeedLoader.Publisher {
         remoteFeedLoader
             .loadPublisher()
             .caching(to: localFeedLoader)
@@ -77,4 +77,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
-extension RemoteFeedLoader: FeedLoader{}
+extension RemoteLoader: FeedLoader where Resource == [FeedImage]{}
