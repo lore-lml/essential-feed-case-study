@@ -49,15 +49,19 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
 
 private extension EssentialFeedAPIEndToEndTests{
     func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> FeedLoader.Result?{
-        let loader = RemoteLoader(url: feedTestServerURL, client: ephemeralClient(), mapper: FeedItemsMapper.map(_:from:))
+        let client = ephemeralClient()
         
         let exp = expectation(description: "Wait for load completion")
         var receivedResult: FeedLoader.Result?
-        
-        trackForMemoryLeaks(loader, file: file, line: line)
-        
-        loader.load { result in
-            receivedResult = result
+        client.get(from: feedTestServerURL) { result in
+            receivedResult = result.flatMap{ (data, response) in
+                do{
+                    return .success(try FeedItemsMapper.map(data, from: response))
+                }catch{
+                    return .failure(error)
+                }
+                
+            }
             exp.fulfill()
         }
         
