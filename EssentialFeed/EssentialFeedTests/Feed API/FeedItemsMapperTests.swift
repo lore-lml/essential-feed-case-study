@@ -68,19 +68,7 @@ private extension FeedItemsMapperTests{
         return (model, json)
     }
     
-    func makeItemsJSON(_ items: [[String: Any]]) -> Data{
-        let itemsJSON = ["items": items]
-        return try! JSONSerialization.data(withJSONObject: itemsJSON)
-    }
-    
     func map(_ data: Data, from response: HTTPURLResponse) throws -> [FeedImage]{
         try FeedItemsMapper.map(data, from: response)
-    }
-}
-
-
-private extension HTTPURLResponse{
-    convenience init(code: Int) {
-        self.init(url: anyURL, statusCode: code, httpVersion: nil, headerFields: nil)!
     }
 }

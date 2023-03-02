@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ImageCommentsMapper{
+public enum ImageCommentsMapper{
     
     private struct Root: Decodable{
         private let items: [Item]
@@ -29,7 +29,7 @@ enum ImageCommentsMapper{
         }
     }
     
-    static func map(_ data: Data, from response: HTTPURLResponse) throws -> [ImageComment]{
+    public static func map(_ data: Data, from response: HTTPURLResponse) throws -> [ImageComment]{
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         guard Self.isOk(response), let root = try? decoder.decode(Root.self, from: data)
