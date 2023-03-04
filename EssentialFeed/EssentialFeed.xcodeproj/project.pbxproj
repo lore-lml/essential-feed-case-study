@@ -419,7 +419,6 @@
 			isa = PBXGroup;
 			children = (
 				0100E9A32954BF6200EC2C1C /* HTTPClientSpy.swift */,
-				01DFA13A29094B5F003305CA /* SharedTestHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -507,6 +506,7 @@
 			children = (
 				019CE21528FDA84600F4C88E /* XCTestCase+MemoryLeakTracking.swift */,
 				0102C78929B36C1300F7CFA9 /* SharedLocalizationTestHelpers.swift */,
+				01DFA13A29094B5F003305CA /* SharedTestHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
