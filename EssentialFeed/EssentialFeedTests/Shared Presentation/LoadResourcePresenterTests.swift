@@ -83,7 +83,7 @@ private extension LoadResourcePresenterTests{
         return value
     }
     
-    final class ViewSpy: ResourceView, FeedLoadingView, FeedErrorView {
+    final class ViewSpy: ResourceView, ResourceLoadingView, FeedErrorView {
         typealias ResourceViewModel = String
         
         enum Message: Hashable{
@@ -95,7 +95,7 @@ private extension LoadResourcePresenterTests{
         private(set) var messages = Set<Message>()
         
         
-        func display(_ viewModel: FeedLoadingViewModel) {
+        func display(_ viewModel: ResourceLoadingViewModel) {
             messages.insert(.display(isLoading: viewModel.isLoading))
         }
         

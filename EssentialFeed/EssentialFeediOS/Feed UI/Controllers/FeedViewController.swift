@@ -77,12 +77,12 @@ extension FeedViewController{
     }
 }
 
-extension FeedViewController: FeedLoadingView{
+extension FeedViewController: ResourceLoadingView{
     @IBAction private func refresh(){
         delegate?.didRequestFeedRefresh()
     }
     
-    public func display(_ viewModel: FeedLoadingViewModel) {
+    public func display(_ viewModel: ResourceLoadingViewModel) {
         refreshControl?.update(isRefreshing: viewModel.isLoading)
     }
 }
