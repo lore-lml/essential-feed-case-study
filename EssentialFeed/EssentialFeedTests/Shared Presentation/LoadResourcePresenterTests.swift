@@ -53,13 +53,14 @@ final class LoadResourcePresenterTests: XCTestCase {
 }
 
 private extension LoadResourcePresenterTests{
+    typealias SUT = LoadResourcePresenter<String, ViewSpy>
     
-    func makeSUT(mapper: @escaping (String) -> String = { _ in "any" },
+    func makeSUT(mapper: @escaping SUT.Mapper = { _ in "any" },
                  file: StaticString = #file,
                  line: UInt = #line
-    ) -> (presenter: LoadResourcePresenter, view: ViewSpy){
+    ) -> (presenter: SUT, view: ViewSpy){
         let view = ViewSpy()
-        let sut = LoadResourcePresenter(
+        let sut = SUT(
             resourceView: view,
             loadingView: view,
             errorView: view,
@@ -72,7 +73,7 @@ private extension LoadResourcePresenterTests{
     
     func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String{
         let table = "Feed"
-        let bundle = Bundle(for: LoadResourcePresenter.self)
+        let bundle = Bundle(for: SUT.self)
         let value = bundle.localizedString(forKey: key, value: nil, table: table)
         
         if value == key{
@@ -83,6 +84,8 @@ private extension LoadResourcePresenterTests{
     }
     
     final class ViewSpy: ResourceView, FeedLoadingView, FeedErrorView {
+        typealias ResourceViewModel = String
+        
         enum Message: Hashable{
             case display(errorMessage: String?)
             case display(isLoading: Bool)
