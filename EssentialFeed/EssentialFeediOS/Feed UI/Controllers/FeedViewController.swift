@@ -88,7 +88,7 @@ extension FeedViewController: ResourceLoadingView{
 }
 
 extension FeedViewController: ResourceErrorView{
-    public func display(_ viewModel: FeedErrorViewModel) {
+    public func display(_ viewModel: ResourceErrorViewModel) {
         errorView?.message = viewModel.message
     }
 }
