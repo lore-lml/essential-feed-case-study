@@ -46,7 +46,18 @@ final class LoadResourcePresenterTests: XCTestCase {
         sut.didFinishedLoading(with: anyNSError)
         
         XCTAssertEqual(view.messages, [
-            .display(errorMessage: localized("GENERIC_CONNECTION_ERROR")),
+            .display(errorMessage: loadError),
+            .display(isLoading: false)
+        ])
+    }
+    
+    func test_didFinishedLoadingWithMapperError_displaysLocalizedErrorMessageAndStopLoading(){
+        let (sut, view) = makeSUT(mapper: { _ in throw anyNSError })
+        
+        sut.didFinishedLoading(with: "resource")
+        
+        XCTAssertEqual(view.messages, [
+            .display(errorMessage: loadError),
             .display(isLoading: false)
         ])
     }
@@ -71,17 +82,7 @@ private extension LoadResourcePresenterTests{
         return (sut, view)
     }
     
-    func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String{
-        let table = "Shared"
-        let bundle = Bundle(for: SUT.self)
-        let value = bundle.localizedString(forKey: key, value: nil, table: table)
-        
-        if value == key{
-            XCTFail("Missing localized string for key: \(key) in table: \(table)", file: file, line: line)
-        }
-
-        return value
-    }
+    var loadError: String{ SUT.loadError }
     
     final class ViewSpy: ResourceView, ResourceLoadingView, ResourceErrorView {
         typealias ResourceViewModel = String
