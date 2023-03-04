@@ -32,6 +32,7 @@ public final class FeedImageCellController: FeedImageView, ResourceView, Resourc
         cell?.locationContainer.isHidden = !viewModel.hasLocation
         cell?.locationLabel.text = viewModel.location
         cell?.descriptionLabel.text = viewModel.description
+        cell?.onRetry = delegate.didRequestImage
         delegate.didRequestImage()
         return cell!
     }
@@ -46,7 +47,7 @@ public final class FeedImageCellController: FeedImageView, ResourceView, Resourc
     }
     
     public func display(_ viewModel: FeedImageViewModel<UIImage>) {
-        cell?.onRetry = delegate.didRequestImage
+        
     }
     
     public func display(_ viewModel: UIImage) {
