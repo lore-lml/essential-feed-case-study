@@ -21,8 +21,8 @@ final class ImageCommentsPresenterTests: XCTestCase {
         let locale = Locale(identifier: "en_US_POSIX")
         
         let comments = [
-            ImageComment(message: "a message", createdAt: now.adding(minutes: -5), username: "a username"),
-            ImageComment(message: "another message", createdAt: now.adding(days: -1), username: "another username")
+            ImageComment(message: "a message", createdAt: now.adding(minutes: -5, calendar: calendar), username: "a username"),
+            ImageComment(message: "another message", createdAt: now.adding(days: -1, calendar: calendar), username: "another username")
         ]
         
         let viewModel = ImageCommentsPresenter.map(
