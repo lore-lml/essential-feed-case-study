@@ -59,7 +59,7 @@ final class FeedAcceptanceTests: XCTestCase {
 // MARK: Helepers
 extension FeedAcceptanceTests{
     
-    func launch(httpClient: HTTPClientStub = .offline, store: InMemoryFeedStore = .empty) -> FeedViewController{
+    func launch(httpClient: HTTPClientStub = .offline, store: InMemoryFeedStore = .empty) -> ListViewController{
         let store = store
         let httpClient = httpClient
         let sut = SceneDelegate(httpClient: httpClient, store: store)
@@ -67,7 +67,7 @@ extension FeedAcceptanceTests{
         sut.configureWindow()
         
         let nav = sut.window?.rootViewController as? UINavigationController
-        return nav?.topViewController as! FeedViewController
+        return nav?.topViewController as! ListViewController
     }
     
     func enterBackground(with store: InMemoryFeedStore){
