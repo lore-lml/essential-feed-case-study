@@ -24,12 +24,4 @@ public final class ImageCommentCellController: CellController  {
         cell.usernameLabel.text = model.username
         return cell
     }
-    
-    public func preload() {
-
-    }
-    
-    public func cancelLoad() {
-        
-    }
 }
