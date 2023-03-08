@@ -24,7 +24,7 @@ final class ImageCommentsSnapshotTests: XCTestCase {
 }
 
 // MARK: HELPERS
-extension ImageCommentsSnapshotTests{
+private extension ImageCommentsSnapshotTests{
     func makeSUT() -> ListViewController{
         let bundle = Bundle(for: ListViewController.self)
         let storyboard = UIStoryboard(name: "ImageComments", bundle: bundle)
@@ -36,6 +36,10 @@ extension ImageCommentsSnapshotTests{
     }
     
     func comments() -> [CellController]{
+        commentsControllers().map{ CellController($0) }
+    }
+    
+    func commentsControllers() -> [ImageCommentCellController]{
         [
             ImageCommentCellController(
                 model: ImageCommentViewModel(

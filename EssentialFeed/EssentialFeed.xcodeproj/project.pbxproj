@@ -39,6 +39,7 @@
 		014AF77429082DD700B4FA01 /* FeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014AF77329082DD700B4FA01 /* FeedStore.swift */; };
 		014AF7782908360100B4FA01 /* LocalFeedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014AF7772908360100B4FA01 /* LocalFeedImage.swift */; };
 		01512140290BE01E00B706BD /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0151213F290BE01E00B706BD /* FeedCachePolicy.swift */; };
+		0180D03A29B90992003F7450 /* CellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0180D03929B90992003F7450 /* CellController.swift */; };
 		0186CA8529B7AA04007EB65D /* LIST_WITH_ERROR_MESSAGE_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0186CA7D29B7AA04007EB65D /* LIST_WITH_ERROR_MESSAGE_dark.png */; };
 		0186CA8629B7AA04007EB65D /* FEED_WITH_FAILED_IMAGE_LOADING_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0186CA7E29B7AA04007EB65D /* FEED_WITH_FAILED_IMAGE_LOADING_dark.png */; };
 		0186CA8729B7AA04007EB65D /* FEED_WITH_CONTENT_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0186CA7F29B7AA04007EB65D /* FEED_WITH_CONTENT_dark.png */; };
@@ -204,6 +205,7 @@
 		014AF77329082DD700B4FA01 /* FeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStore.swift; sourceTree = "<group>"; };
 		014AF7772908360100B4FA01 /* LocalFeedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFeedImage.swift; sourceTree = "<group>"; };
 		0151213F290BE01E00B706BD /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
+		0180D03929B90992003F7450 /* CellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellController.swift; sourceTree = "<group>"; };
 		0186CA7D29B7AA04007EB65D /* LIST_WITH_ERROR_MESSAGE_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LIST_WITH_ERROR_MESSAGE_dark.png; sourceTree = "<group>"; };
 		0186CA7E29B7AA04007EB65D /* FEED_WITH_FAILED_IMAGE_LOADING_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FEED_WITH_FAILED_IMAGE_LOADING_dark.png; sourceTree = "<group>"; };
 		0186CA7F29B7AA04007EB65D /* FEED_WITH_CONTENT_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FEED_WITH_CONTENT_dark.png; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 			isa = PBXGroup;
 			children = (
 				01B8650F2920833A0030A372 /* ListViewController.swift */,
+				0180D03929B90992003F7450 /* CellController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1158,6 +1161,7 @@
 				01FAE6EA29A53DDC00ECA047 /* UITableView+HeaderSizing.swift in Sources */,
 				0193B2CA29474F54004739F0 /* ErrorView.swift in Sources */,
 				0193B2CF294751F9004739F0 /* UIRefreshControl+Helpers.swift in Sources */,
+				0180D03A29B90992003F7450 /* CellController.swift in Sources */,
 				012AFD7D2926F4040079827A /* UIView+Shimmering.swift in Sources */,
 				019FF122292BD42E0030EEB9 /* UITableView+Dequeueing.swift in Sources */,
 				01B865102920833A0030A372 /* ListViewController.swift in Sources */,

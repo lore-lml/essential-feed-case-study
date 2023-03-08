@@ -9,14 +9,16 @@
 import UIKit
 import EssentialFeed
 
-public final class ImageCommentCellController: NSObject, CellController  {
+public final class ImageCommentCellController: NSObject  {
     
     private let model: ImageCommentViewModel
     
     public init(model: ImageCommentViewModel){
         self.model = model
     }
-    
+}
+
+extension ImageCommentCellController: UITableViewDataSource{
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
@@ -28,6 +30,4 @@ public final class ImageCommentCellController: NSObject, CellController  {
         cell.usernameLabel.text = model.username
         return cell
     }
-    
-    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {}
 }
