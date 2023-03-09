@@ -37,7 +37,7 @@ private extension ImageCommentsSnapshotTests{
     }
     
     func comments() -> [CellController]{
-        commentsControllers().map{ CellController($0) }
+        commentsControllers().map{ CellController(id: UUID(), $0) }
     }
     
     func commentsControllers() -> [ImageCommentCellController]{
