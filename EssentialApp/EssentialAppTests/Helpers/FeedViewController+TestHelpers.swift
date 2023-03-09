@@ -12,12 +12,16 @@ import EssentialFeediOS
 extension ListViewController{
     var isShowingLoadingIndicator: Bool{ refreshControl?.isRefreshing == true }
     
-    var errorMessage: String? { errorView?.message }
+    var errorMessage: String? { errorView.message }
     
     var feedImagesSection: Int{ 0 }
     
     func simulateUserInitiatedFeedReload(){
         refreshControl?.simulatePullToRefresh()
+    }
+    
+    func simulateErrorViewTap(){
+        errorView.simulateTap()
     }
     
     @discardableResult
