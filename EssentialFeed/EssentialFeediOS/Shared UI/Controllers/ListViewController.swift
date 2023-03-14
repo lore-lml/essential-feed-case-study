@@ -62,6 +62,11 @@ final public class ListViewController: UITableViewController, UITableViewDataSou
         delegate?.tableView?(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
+    public override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let dl = cellController(at: indexPath)?.delegate
+        dl?.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
+    
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach{ indexPath in
             let dataSourcePrefetching = cellController(at: indexPath)?.dataSourcePrefetching
@@ -86,7 +91,11 @@ extension ListViewController{
         var snapshot = NSDiffableDataSourceSnapshot<Int, CellController>()
         snapshot.appendSections([0])
         snapshot.appendItems(cellControllers, toSection: 0)
-        dataSource.apply(snapshot)
+        if #available(iOS 15.0, *) {
+          dataSource.applySnapshotUsingReloadData(snapshot)
+        } else {
+          dataSource.apply(snapshot)
+        }
     }
 }
 
