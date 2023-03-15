@@ -19,6 +19,8 @@ extension FeedUIIntegrationTests{
     var loadError: String{ GenericPresenter.loadError }
     
     var feedTitle: String{ FeedPresenter.title }
+    
+    var commentsTitle: String{ ImageCommentsPresenter.title }
 }
 
 
