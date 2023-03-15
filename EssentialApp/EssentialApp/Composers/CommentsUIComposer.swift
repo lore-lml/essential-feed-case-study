@@ -21,7 +21,7 @@ enum CommentsUIComposer{
         commentsLoader: @escaping () -> AnyPublisher<[ImageComment], Error>
     ) -> ListViewController{
 
-        let presentationAdapter = CommentsPresentationAdapter(loader: commentsLoader)
+        let presentationAdapter = CommentsPresentationAdapter(loader: { commentsLoader().dispatchOnMainQueue() })
         
         let commentsController = ListViewController.makeWith(
             title: ImageCommentsPresenter.title)
