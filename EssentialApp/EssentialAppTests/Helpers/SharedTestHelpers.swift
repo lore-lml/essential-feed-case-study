@@ -25,3 +25,15 @@ func uniqueFeed() -> [FeedImage]{
         FeedImage(url: .init(string: "http://any-url.com")!, description: "any", location: "any")
     ]
 }
+
+private final class DummyView: ResourceView{
+    typealias ResourceViewModel = String
+    func display(_ viewModel: String) {}
+}
+private typealias GenericPresenter = LoadResourcePresenter<Any, DummyView>
+
+var loadError: String{ GenericPresenter.loadError }
+
+var feedTitle: String{ FeedPresenter.title }
+
+var commentsTitle: String{ ImageCommentsPresenter.title }
