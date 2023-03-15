@@ -11,7 +11,7 @@ import EssentialFeediOS
 import EssentialFeed
 
 extension FeedUIIntegrationTests{
-    func assertThat(_ sut: ListViewController, isRendering feed: [FeedImage], file: StaticString = #file, line: UInt = #line){
+    func assertThat(_ sut: ListViewController, isRendering feed: [FeedImage], file: StaticString = #filePath, line: UInt = #line){
         sut.tableView.layoutIfNeeded()
         RunLoop.main.run(until: Date())
         

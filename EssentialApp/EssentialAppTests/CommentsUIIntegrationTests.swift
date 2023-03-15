@@ -163,7 +163,7 @@ final class CommentsUIIntegrationTests: XCTestCase {
 // MARK: Helpers
 private extension CommentsUIIntegrationTests{
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy){
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy){
         let loader = LoaderSpy()
         let sut = CommentsUIComposer.commentsComposedWith(commentsLoader: loader.loadPublisher)
         trackForMemoryLeaks(loader, file: file, line: line)

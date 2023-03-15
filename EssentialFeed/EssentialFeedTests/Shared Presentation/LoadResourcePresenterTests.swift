@@ -67,7 +67,7 @@ private extension LoadResourcePresenterTests{
     typealias SUT = LoadResourcePresenter<String, ViewSpy>
     
     func makeSUT(mapper: @escaping SUT.Mapper = { _ in "any" },
-                 file: StaticString = #file,
+                 file: StaticString = #filePath,
                  line: UInt = #line
     ) -> (presenter: SUT, view: ViewSpy){
         let view = ViewSpy()

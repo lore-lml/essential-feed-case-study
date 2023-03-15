@@ -69,7 +69,7 @@ final class CoreDataFeedImageDataStoreTests: XCTestCase {
 // - MARK: Helpers
 private extension CoreDataFeedImageDataStoreTests{
     
-    func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataFeedStore {
+    func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> CoreDataFeedStore {
         let storeURL = URL(fileURLWithPath: "/dev/null")
         let sut = try! CoreDataFeedStore(storeURL: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -88,7 +88,7 @@ private extension CoreDataFeedImageDataStoreTests{
         LocalFeedImage(id: UUID(), url: url, description: "any", location: "any")
     }
 
-    func expect(_ sut: CoreDataFeedStore, toCompleteRetrievalWith expectedResult: FeedImageDataStore.RetrievalResult, for url: URL,  file: StaticString = #file, line: UInt = #line) {
+    func expect(_ sut: CoreDataFeedStore, toCompleteRetrievalWith expectedResult: FeedImageDataStore.RetrievalResult, for url: URL,  file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
         sut.retrieve(dataForURL: url) { receivedResult in
             switch (receivedResult, expectedResult) {

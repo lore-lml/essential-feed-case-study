@@ -161,7 +161,7 @@ private extension EssentialFeedCacheIntegrationTests{
         wait(for: [saveExp], timeout: 1.0)
     }
     
-    private func validateCache(with loader: LocalFeedLoader, file: StaticString = #file, line: UInt = #line) {
+    private func validateCache(with loader: LocalFeedLoader, file: StaticString = #filePath, line: UInt = #line) {
         let saveExp = expectation(description: "Wait for save completion")
         loader.validateCache() { result in
             if case let Result.failure(error) = result {
