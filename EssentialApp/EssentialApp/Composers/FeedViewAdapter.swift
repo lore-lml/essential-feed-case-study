@@ -49,5 +49,4 @@ final class FeedViewAdapter: ResourceView{
         })
     }
 }
-
 private struct InvalidImageData: Error {}
